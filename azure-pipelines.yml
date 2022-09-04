@@ -26,6 +26,7 @@ stages:
             effectivePomSkip: false
             sonarQubeRunAnalysis: false
           displayName: testcases
+          condition: eq(1,2)
         - task: Maven@3
           inputs:
             mavenPomFile: 'pom.xml'
@@ -38,3 +39,4 @@ stages:
             effectivePomSkip: false
             sonarQubeRunAnalysis: false
           displayName: build
+        - script: echo $Build.ArtifactStagingDirectory
