@@ -13,7 +13,19 @@ stages:
     jobs:
     - job:
       steps:
-        
+        - task: Maven@3
+          inputs:
+            mavenPomFile: 'pom.xml'
+            goals: 'test'
+            publishJUnitResults: true
+            testResultsFiles: '**/surefire-reports/TEST-*.xml'
+            testRunTitle: 'TEST CASES'
+            javaHomeOption: 'JDKVersion'
+            mavenVersionOption: 'Default'
+            mavenAuthenticateFeed: false
+            effectivePomSkip: false
+            sonarQubeRunAnalysis: false
+          displayName: testcases
         - task: Maven@3
           inputs:
             mavenPomFile: 'pom.xml'
@@ -25,3 +37,4 @@ stages:
             mavenAuthenticateFeed: false
             effectivePomSkip: false
             sonarQubeRunAnalysis: false
+          displayName: build
