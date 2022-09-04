@@ -1,7 +1,5 @@
 package com.knreddy.www;
 
-import javafx.scene.control.CheckBox;
-
 /**
  * Hello world!
  *
