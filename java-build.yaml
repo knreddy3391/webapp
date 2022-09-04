@@ -1,0 +1,45 @@
+- name: Install jenkins on the machines
+  hosts: all
+  become: yes
+  vars:
+    - apps:
+        - java-1.8.0-openjdk
+        - git
+        - python3
+  tasks:
+    - name: set the facts
+      set_fact:
+        ouput: []
+    - name: Update all
+      package:
+        name: "*"
+        state: latest
+    - name: Install all necessary softwares
+      package:
+        name: "{{item}}"
+        state: present
+      register: out
+      with_items: "{{ apps }}"
+      notify:
+        - enable and start the services
+    - name: show package data
+      debug:
+        var: out
+    - name: untar the file
+      unarchive:
+        src: https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz
+        dest: "/opt/"
+        remote_src: yes
+    - name: update Path
+      lineinfile:
+        path: /etc/environment
+        create: yes
+        regexp: "^PATH.*"
+        line: "PATH={{ lookup('ansible.builtin.env', 'PATH')}}:/opt/apache-maven-3.8.6/bin"
+  handlers:
+    - name: enable and start the services
+      service:
+        state: restarted
+        enabled: yes
+        name: "{{item}}"
+      with_items: "{{apps}}"
