@@ -40,7 +40,6 @@ stages:
             sonarQubeRunAnalysis: false
           displayName: build
         - script: |
-                  env
-                  echo "*******"
-                  echo $(Build.ArtifactStagingDirectory)
-        
+                  cd $(Build.ArtifactStagingDirectory)
+                  java -cp target/webapp-1.0-SNAPSHOT.jar com.knreddy.www.App
+          displayName: Run App
