@@ -39,4 +39,8 @@ stages:
             effectivePomSkip: false
             sonarQubeRunAnalysis: false
           displayName: build
-        - script: echo $Build.ArtifactStagingDirectory
+        - script: |
+                  env
+                  echo "*******"
+                  echo $(Build.ArtifactStagingDirectory)
+        
