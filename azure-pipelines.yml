@@ -11,8 +11,9 @@ pool: default
 stages:
   - stage:
     jobs:
-      - job:
-          task: Maven@3
+    - job:
+      - steps:
+        - task: Maven@3
           inputs:
             mavenPomFile: 'pom.xml'
             goals: 'clean package'
