@@ -41,5 +41,7 @@ stages:
           displayName: build
         - script: |
                   cd $(Build.ArtifactStagingDirectory)
+                  echo $(pwd)
+                  echo $(ls -ltra)
                   java -cp target/webapp-1.0-SNAPSHOT.jar com.knreddy.www.App
           displayName: Run App
